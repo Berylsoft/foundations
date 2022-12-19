@@ -1,14 +1,13 @@
 pub const BS_IDENT: u32 = 0x42650000;
 
-use std::io::{self, Read, Write};
+use std::{io::{self, Read, Write}};
 use blake3::{Hasher, OUT_LEN as HASH_LEN};
+use crate::usize_casting::*;
 
 // region: util
 
-macro_rules! into {
-    ($val:expr) => {
-        $val.try_into().expect("FATAL: Size out of boundary")
-    };
+fn usize_u32(n: usize) -> Result<u32> {
+    n.try_into().map_err(|_| Error::TooLongSize { size: usize_u64(n) })
 }
 
 // endregion
@@ -169,6 +168,7 @@ pub enum Error {
     HashNotMatch { existing: Hash, calculated: Hash },
     InputLengthNotMatch { config_len: u32, input_len: u32, which: InputKind },
     UnexpectedRowType { row_type: u8 },
+    TooLongSize { size: u64 },
     /// may happens only when using async-kvdump
     AsyncFileClosed,
 }
@@ -211,7 +211,7 @@ impl<F: Read> Reader<F> {
             return Err(Error::VersionNotMatch { existing: version });
         }
 
-        let ident_len = into!(inner.read_u32()?);
+        let ident_len = u32_usize(inner.read_u32()?);
         let ident = inner.read_bytes(ident_len)?;
 
         let sizes_flag = inner.read_u8()?;
@@ -231,7 +231,7 @@ impl<F: Read> Reader<F> {
             ROW_KV => Row::KV({
                 macro_rules! skv_op_impl {
                     ($($x:ident,)*) => {$(
-                        let len = into!(match self.config.sizes.$x {
+                        let len = u32_usize(match self.config.sizes.$x {
                             Some(len) => len,
                             None => self.inner.read_u32()?,
                         });
@@ -295,7 +295,7 @@ impl<F: Write> Writer<F> {
     fn write_init(&mut self) -> Result<()> {
         self.inner.write_u32(BS_IDENT)?;
 
-        self.inner.write_u32(into!(self.config.ident.len()))?;
+        self.inner.write_u32(usize_u32(self.config.ident.len())?)?;
         self.inner.write_bytes(self.config.ident.clone())?;
 
         self.inner.write_u8(self.config.sizes.flag())?;
@@ -315,7 +315,7 @@ impl<F: Write> Writer<F> {
 
         macro_rules! skv_op_impl {
             ($($x:ident,)*) => {$({
-                let input_len = into!(kv.$x.len());
+                let input_len = usize_u32(kv.$x.len())?;
                 match self.config.sizes.$x {
                     Some(config_len) => {
                         if config_len != input_len {
