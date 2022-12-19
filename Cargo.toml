@@ -14,10 +14,11 @@ path = "lib.rs"
 concat-string = []
 error-enum = []
 byterepr = []
+byterepr-macros = ["byterepr"]
 kvdump = ["blake3"]
 key-index = []
 key-index-map = ["key-index"]
-default = ["concat-string", "error-enum", "byterepr", "kvdump", "key-index", "key-index-map"]
+default = ["concat-string", "error-enum", "byterepr", "byterepr-macros", "kvdump", "key-index", "key-index-map"]
 
 [dependencies]
 blake3 = { version = "1", optional = true }
