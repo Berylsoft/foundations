@@ -19,3 +19,5 @@ pub mod num_compress;
 pub mod case_convert;
 pub mod const_bytes_equal;
 pub mod bytes_read;
+
+pub mod sha3;

@@ -18,7 +18,10 @@ byterepr-macros = ["byterepr"]
 kvdump = ["blake3"]
 key-index = []
 key-index-map = ["key-index"]
-default = ["concat-string", "error-enum", "byterepr", "byterepr-macros", "kvdump", "key-index", "key-index-map"]
+default = ["concat-string", "error-enum", "byterepr", "byterepr-macros", "kvdump", "key-index", "key-index-map", "sha3"]
+
+sha3 = ["tiny-keccak"]
 
 [dependencies]
 blake3 = { version = "1", optional = true }
+tiny-keccak = { version = "2", features = ["sha3", "shake"], optional = true }
