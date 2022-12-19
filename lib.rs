@@ -1,5 +1,10 @@
+#[cfg(feature = "macros")]
 pub mod macros;
+#[cfg(feature = "byterepr")]
 pub mod byterepr;
+#[cfg(feature = "kvdump")]
 pub mod kvdump;
+#[cfg(feature = "key-index")]
 pub mod key_index;
+#[cfg(feature = "key-index-map")]
 pub mod key_index_map;

@@ -9,3 +9,14 @@ repository = "https://github.com/Berylsoft/foundations"
 [lib]
 name = "foundations"
 path = "lib.rs"
+
+[features]
+macros = []
+byterepr = []
+kvdump = ["blake3"]
+key-index = []
+key-index-map = ["key-index"]
+default = ["macros", "byterepr", "kvdump", "key-index", "key-index-map"]
+
+[dependencies]
+blake3 = { version = "1", optional = true }

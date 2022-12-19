@@ -1,5 +1,5 @@
 use std::collections::VecDeque;
-use crate::*;
+use crate::key_index::*;
 
 pub struct KeyIndexedMap<K1, K2, K3, V> {
     idx: KeyIndex<K1, K2, K3, usize>,
