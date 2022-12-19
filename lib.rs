@@ -25,5 +25,7 @@ pub mod kvdump;
 mod concat_string;
 #[cfg(feature = "error-enum")]
 mod error_enum;
+#[cfg(feature = "num-enum")]
+mod num_enum;
 #[cfg(feature = "byterepr-macros")]
 mod byterepr_macros;

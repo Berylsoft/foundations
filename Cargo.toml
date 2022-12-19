@@ -29,6 +29,7 @@ kvdump = ["usize-casting", "blake3"]
 
 concat-string = []
 error-enum = []
+num-enum = []
 byterepr-macros = ["byterepr"]
 
 default = [
@@ -46,5 +47,6 @@ default = [
 
     "concat-string",
     "error-enum",
+    "num-enum",
     "byterepr-macros",
 ]
