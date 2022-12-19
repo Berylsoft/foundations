@@ -30,3 +30,16 @@ pub const fn from_h4l4(h4: u8, l4: u8) -> u8 {
 pub const fn to_h4l4(n: u8) -> (u8, u8) {
     (n >> 4, n & 0xF)
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test() {
+        assert_eq!(float_find_zero(0x00_00_00_00_00_00_00_00), 0);
+        assert_eq!(float_find_zero(0x01_00_00_00_00_00_00_00), 1);
+        assert_eq!(float_find_zero(0x01_00_00_01_00_00_00_00), 4);
+        assert_eq!(float_find_zero(0x01_00_00_01_00_00_00_01), 8);
+    }
+}
