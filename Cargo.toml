@@ -10,18 +10,41 @@ repository = "https://github.com/Berylsoft/foundations"
 name = "foundations"
 path = "lib.rs"
 
-[features]
-concat-string = []
-error-enum = []
-byterepr = []
-byterepr-macros = ["byterepr"]
-kvdump = ["blake3"]
-key-index = []
-key-index-map = ["key-index"]
-default = ["concat-string", "error-enum", "byterepr", "byterepr-macros", "kvdump", "key-index", "key-index-map", "sha3"]
-
-sha3 = ["tiny-keccak"]
-
 [dependencies]
 blake3 = { version = "1", optional = true }
 tiny-keccak = { version = "2", features = ["sha3", "shake"], optional = true }
+
+[features]
+now = []
+usize-casting = []
+byterepr = []
+bytes-read = []
+num-compress = []
+case-convert = []
+const-bytes-equal = []
+key-index = []
+key-index-map = ["key-index"]
+sha3 = ["tiny-keccak"]
+kvdump = ["usize-casting", "blake3"]
+
+concat-string = []
+error-enum = []
+byterepr-macros = ["byterepr"]
+
+default = [
+    "now",
+    "usize-casting",
+    "byterepr",
+    "bytes-read",
+    "num-compress",
+    "case-convert",
+    "const-bytes-equal",
+    "key-index",
+    "key-index-map",
+    "sha3",
+    "kvdump",
+
+    "concat-string",
+    "error-enum",
+    "byterepr-macros",
+]
