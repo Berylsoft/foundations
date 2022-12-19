@@ -11,12 +11,13 @@ name = "foundations"
 path = "lib.rs"
 
 [features]
-macros = []
+concat-string = []
+error-enum = []
 byterepr = []
 kvdump = ["blake3"]
 key-index = []
 key-index-map = ["key-index"]
-default = ["macros", "byterepr", "kvdump", "key-index", "key-index-map"]
+default = ["concat-string", "error-enum", "byterepr", "kvdump", "key-index", "key-index-map"]
 
 [dependencies]
 blake3 = { version = "1", optional = true }

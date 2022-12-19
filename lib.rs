@@ -1,5 +1,7 @@
-#[cfg(feature = "macros")]
-pub mod macros;
+#[cfg(feature = "concat-string")]
+pub mod concat_string;
+#[cfg(feature = "error-enum")]
+pub mod error_enum;
 #[cfg(feature = "byterepr")]
 pub mod byterepr;
 #[cfg(feature = "kvdump")]
