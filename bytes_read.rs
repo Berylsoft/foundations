@@ -1,14 +1,3 @@
-/// # Safety
-/// 
-/// This is an unchecked function. The caller needs to ensure that the length of the input slice
-/// and the length of the output array (`N`) are the same.
-#[inline]
-pub const unsafe fn slice_to_array_unchecked<T, const N: usize>(slice: &[T]) -> &[T; N] {
-    let ptr = slice.as_ptr() as *const [T; N];
-    // SAFETY: this is a unchecked function
-    unsafe { &*ptr }
-}
-
 type BytesReadResult<T> = Result<T, (usize, usize)>;
 
 pub trait BytesRead<'a> {
@@ -19,7 +8,7 @@ pub trait BytesRead<'a> {
     #[inline]
     fn steal_array<const N: usize>(&mut self) -> BytesReadResult<&'a [u8; N]> {
         // SAFETY: we just stealed a slice with the same length
-        Ok(unsafe { slice_to_array_unchecked(self.steal(N)?) })
+        Ok(self.steal(N)?.try_into().unwrap())
     }
 
     #[inline]
