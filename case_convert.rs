@@ -1,13 +1,13 @@
 #[inline]
-pub fn to_snake_case(path: &str) -> String {
-    path.replace('-', "_")
+pub fn to_snake_case(s: &str) -> String {
+    s.replace('-', "_")
 }
 
 // Copied from serde: serde_derive/src/internals/case.rs
-pub fn to_pascal_case(name: &str) -> String {
+pub fn to_pascal_case(s: &str) -> String {
     let mut pascal = String::new();
     let mut capitalize = true;
-    for ch in name.chars() {
+    for ch in s.chars() {
         if ch == '-' {
             capitalize = true;
         } else if capitalize {

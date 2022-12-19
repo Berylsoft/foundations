@@ -7,7 +7,6 @@ pub trait BytesRead<'a> {
 
     #[inline]
     fn steal_array<const N: usize>(&mut self) -> BytesReadResult<&'a [u8; N]> {
-        // SAFETY: we just stealed a slice with the same length
         Ok(self.steal(N)?.try_into().unwrap())
     }
 
