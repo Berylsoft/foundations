@@ -12,3 +12,10 @@ pub mod kvdump;
 pub mod key_index;
 #[cfg(feature = "key-index-map")]
 pub mod key_index_map;
+
+pub mod now;
+pub mod usize_casting;
+pub mod num_compress;
+pub mod case_convert;
+pub mod const_bytes_equal;
+pub mod bytes_read;
