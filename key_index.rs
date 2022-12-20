@@ -86,8 +86,3 @@ where
         Ok(res)
     }
 }
-
-#[cfg(feature = "map")]
-mod map;
-#[cfg(feature = "map")]
-pub use map::*;
