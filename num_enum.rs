@@ -16,7 +16,7 @@ macro_rules! num_enum {
         impl TryFrom<$num> for $name {
             type Error = $error;
             
-            fn try_from(n: $num) -> Result<$name, $error> {
+            fn try_from(n: $num) -> std::result::Result<$name, $error> {
                 match n {
                     $($n => Ok($name::$variant),)*
                     n => Err($error::$error_variant(n)),

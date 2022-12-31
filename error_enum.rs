@@ -4,8 +4,7 @@ macro_rules! error_enum {
         $(#[$meta:meta])*
         $pub:vis enum $name:ident {
             $($extra:tt)*
-        }
-        convert {
+        } convert {
             $($variant:ident => $error:ty,)*
         }
     } => {

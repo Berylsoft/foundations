@@ -25,7 +25,7 @@ const-bytes-equal = []
 key-index = []
 key-index-map = ["key-index"]
 sha3 = ["tiny-keccak"]
-kvdump = ["usize-casting", "blake3"]
+kvdump = ["usize-casting", "error-enum", "num-enum", "blake3"]
 
 concat-string = []
 error-enum = []
