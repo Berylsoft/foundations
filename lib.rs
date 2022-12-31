@@ -2,6 +2,8 @@
 pub mod now;
 #[cfg(feature = "usize-casting")]
 pub mod usize_casting;
+#[cfg(feature = "map-util")]
+pub mod map_util;
 #[cfg(feature = "byterepr")]
 pub mod byterepr;
 #[cfg(feature = "bytes-read")]

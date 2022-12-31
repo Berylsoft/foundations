@@ -17,6 +17,7 @@ tiny-keccak = { version = "2", features = ["sha3", "shake"], optional = true }
 [features]
 now = []
 usize-casting = []
+map-util = []
 byterepr = []
 bytes-read = []
 num-compress = []
@@ -35,6 +36,7 @@ byterepr-macros = ["byterepr"]
 default = [
     "now",
     "usize-casting",
+    "map-util",
     "byterepr",
     "bytes-read",
     "num-compress",
