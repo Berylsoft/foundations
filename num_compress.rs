@@ -8,15 +8,9 @@ pub const fn zigzag_decode(n: u64) -> i64 {
     ((n >> 1) ^ (-((n & 1) as i64)) as u64) as i64
 }
 
+#[inline]
 pub fn float_find_zero(f: u64) -> usize {
-    let mut buf = f.to_be_bytes();
-    buf.reverse();
-    for (i, b) in buf.into_iter().enumerate() {
-        if b != 0 {
-            return 8 - i;
-        }
-    }
-    0
+    (8 - (f.trailing_zeros() / 8)) as usize
 }
 
 #[inline]
