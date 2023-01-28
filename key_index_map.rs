@@ -1,3 +1,5 @@
+#![allow(clippy::type_complexity)]
+
 use std::collections::VecDeque;
 use crate::key_index::*;
 
@@ -11,19 +13,21 @@ pub struct QueryIter<'a, K1, K2, K3, V> {
     seq: &'a Vec<(K1, K2, K3, V)>,
 }
 
+impl<K1, K2, K3, V> Default for KeyIndexedMap<K1, K2, K3, V> {
+    fn default() -> Self {
+        KeyIndexedMap {
+            idx: KeyIndex::default(),
+            seq: Vec::new(),
+        }
+    }
+}
+
 impl<K1, K2, K3, V> KeyIndexedMap<K1, K2, K3, V>
 where
     K1: Ord + Copy,
     K2: Ord + Copy,
     K3: Ord + Copy,
 {
-    pub fn new() -> KeyIndexedMap<K1, K2, K3, V> {
-        KeyIndexedMap {
-            idx: KeyIndex::new(),
-            seq: Vec::new(),
-        }
-    }
-
     pub fn get_idx(&self) -> &KeyIndex<K1, K2, K3, usize> {
         &self.idx
     }
@@ -49,7 +53,7 @@ where
         self.idx.insert(k1, k2, k3, vi)
     }
 
-    pub fn query<'a>(&'a mut self, query: Query<K1, K2, K3>) -> QueryIter<'a, K1, K2, K3, V> {
+    pub fn query(&mut self, query: Query<K1, K2, K3>) -> QueryIter<K1, K2, K3, V> {
         QueryIter {
             vi: self.idx.query(query).into_iter().collect(),
             seq: &self.seq,

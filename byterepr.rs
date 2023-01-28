@@ -19,7 +19,7 @@ impl<const N: usize> ByteRepr for [u8; N] {
 
     #[inline]
     fn to_bytes(&self) -> Self::Bytes {
-        self.clone()
+        *self
     }
 }
 
