@@ -1,6 +1,7 @@
-#[inline]
-pub fn now_raw() -> (u64, u32) {
+pub fn now_raw() -> (bool, u64, u32) {
     use std::time::{SystemTime, UNIX_EPOCH};
-    let dur = SystemTime::now().duration_since(UNIX_EPOCH).expect("FATAL: system time before unix epoch");
-    (dur.as_secs(), dur.subsec_nanos())
+    let res = SystemTime::now().duration_since(UNIX_EPOCH);
+    let ok = res.is_ok();
+    let dur = res.unwrap_or_else(|err| err.duration());
+    (ok, dur.as_secs(), dur.subsec_nanos())
 }
