@@ -23,3 +23,24 @@ pub fn sha3_512_once(bytes: &[u8]) -> [u8; 64] {
     hasher.finalize(&mut res);
     res
 }
+
+pub struct Shake256Cipher {
+    hasher: Shake,
+}
+
+impl Shake256Cipher {
+    pub fn init(key: &[u8]) -> Shake256Cipher {
+        let mut hasher = Shake::v256();
+        hasher.update(key);
+        Shake256Cipher { hasher }
+    }
+
+    pub fn exec(&mut self, bytes: &[u8]) -> Vec<u8> {
+        let mut output = vec![0; bytes.len()];
+        self.hasher.squeeze(&mut output);
+        for i in 0..bytes.len() {
+            output[i] = output[i] ^ bytes[i];
+        }
+        output
+    }
+}
