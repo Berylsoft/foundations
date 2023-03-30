@@ -35,11 +35,11 @@ impl Shake256Cipher {
         Shake256Cipher { hasher }
     }
 
-    pub fn exec(&mut self, bytes: &[u8]) -> Vec<u8> {
+    pub fn next(&mut self, bytes: &[u8]) -> Vec<u8> {
         let mut output = vec![0; bytes.len()];
         self.hasher.squeeze(&mut output);
         for i in 0..bytes.len() {
-            output[i] = output[i] ^ bytes[i];
+            output[i] ^= bytes[i];
         }
         output
     }
