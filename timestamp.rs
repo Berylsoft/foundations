@@ -10,7 +10,7 @@ const MILLIS_PER_SEC: i64 = 1_000;
 
 pub const AFTER_UNIX: i64 = 978307200;
 
-pub const fn from_now_raw(dir: bool, secs: u64, nanos: u32) -> (i64, u32) {
+pub const fn from_now_raw((dir, secs, nanos): (bool, u64, u32)) -> (i64, u32) {
     let secs = u64_i64(secs, dir) - AFTER_UNIX;
     (secs, nanos)
 }
@@ -21,7 +21,7 @@ pub const fn from_unix_ms(ts: i64) -> (i64, u32) {
     (secs, nanos)
 }
 
-pub const fn to_unix_ms(secs: i64, nanos: u32) -> i64 {
+pub const fn to_unix_ms((secs, nanos): (i64, u32)) -> i64 {
     (secs + AFTER_UNIX) * MILLIS_PER_SEC
     + (nanos / NANOS_PER_MILLI) as i64
 }
