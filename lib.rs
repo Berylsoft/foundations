@@ -1,5 +1,7 @@
 #[cfg(feature = "now")]
 pub mod now;
+#[cfg(feature = "timestamp")]
+pub mod timestamp;
 #[cfg(feature = "usize-casting")]
 pub mod usize_casting;
 #[cfg(feature = "map-util")]

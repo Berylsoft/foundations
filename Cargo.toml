@@ -12,6 +12,7 @@ path = "lib.rs"
 
 [features]
 now = []
+timestamp = []
 usize-casting = []
 map-util = []
 byterepr = []
@@ -29,6 +30,7 @@ byterepr-macros = ["byterepr"]
 
 default = [
     "now",
+    "timestamp",
     "usize-casting",
     "map-util",
     "byterepr",
