@@ -1,9 +1,3 @@
-#[inline]
-const fn u64_i64(u: u64, s: bool) -> i64 {
-    let i = u as i64;
-    if s { i } else { -i }
-}
-
 const NANOS_PER_SEC: u32 = 1_000_000_000;
 const NANOS_PER_MILLI: u32 = 1_000_000;
 const MILLIS_PER_SEC: i64 = 1_000;
@@ -11,8 +5,10 @@ const MILLIS_PER_SEC: i64 = 1_000;
 pub const AFTER_UNIX: i64 = 978307200;
 
 pub const fn from_now_raw((dir, secs, nanos): (bool, u64, u32)) -> (i64, u32) {
-    let secs = u64_i64(secs, dir) - AFTER_UNIX;
-    (secs, nanos)
+    assert!(secs < (i64::MAX as u64));
+    let secs = secs as i64;
+    let secs = if dir { secs } else { -secs };
+    (secs - AFTER_UNIX, nanos)
 }
 
 pub const fn from_unix_ms(ts: i64) -> (i64, u32) {
