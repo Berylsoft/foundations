@@ -1,3 +1,5 @@
+#[cfg(feature = "xor")]
+pub mod xor;
 #[cfg(feature = "now")]
 pub mod now;
 #[cfg(feature = "timestamp")]
@@ -21,6 +23,8 @@ pub mod key_index;
 #[cfg(feature = "key-index-map")]
 pub mod key_index_map;
 
+#[cfg(feature = "const-assert")]
+mod const_assert;
 #[cfg(feature = "concat-string")]
 mod concat_string;
 #[cfg(feature = "error-enum")]

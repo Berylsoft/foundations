@@ -11,6 +11,7 @@ name = "foundations"
 path = "lib.rs"
 
 [features]
+xor = []
 now = []
 timestamp = []
 usize-casting = []
@@ -23,12 +24,14 @@ const-bytes-equal = []
 key-index = []
 key-index-map = ["key-index"]
 
+const-assert = []
 concat-string = []
 error-enum = []
 num-enum = []
 byterepr-macros = ["byterepr"]
 
 default = [
+    "xor",
     "now",
     "timestamp",
     "usize-casting",
@@ -41,6 +44,7 @@ default = [
     "key-index",
     "key-index-map",
 
+    "const-assert",
     "concat-string",
     "error-enum",
     "num-enum",
