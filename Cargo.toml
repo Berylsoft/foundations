@@ -30,23 +30,4 @@ error-enum = []
 num-enum = []
 byterepr-macros = ["byterepr"]
 
-default = [
-    "xor",
-    "now",
-    "timestamp",
-    "usize-casting",
-    "map-util",
-    "byterepr",
-    "bytes-read",
-    "num-compress",
-    "case-convert",
-    "const-bytes-equal",
-    "key-index",
-    "key-index-map",
-
-    "const-assert",
-    "concat-string",
-    "error-enum",
-    "num-enum",
-    "byterepr-macros",
-]
+default = []
