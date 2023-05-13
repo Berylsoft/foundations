@@ -1,3 +1,4 @@
+#[inline]
 pub fn xor(dst: &mut [u8], src: &[u8]) {
     let len = dst.len();
 
@@ -12,6 +13,7 @@ pub fn xor(dst: &mut [u8], src: &[u8]) {
     }
 }
 
+#[inline]
 pub fn xor_array<const N: usize>(dst: &mut [u8; N], src: &[u8; N]) {
     for i in 0..N {
         dst[i] ^= src[i];
