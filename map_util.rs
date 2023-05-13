@@ -1,6 +1,6 @@
 use std::collections::{BTreeMap, btree_map::Entry};
 
-pub fn get_or_insert<K: Ord, V>(map: &mut BTreeMap<K, V>, k: K, init_v: fn() -> V) -> &mut V {
+pub fn get_or_insert<K: Ord, V, F: FnOnce() -> V>(map: &mut BTreeMap<K, V>, k: K, init_v: F) -> &mut V {
     match map.entry(k) {
         Entry::Vacant(entry) => entry.insert(init_v()),
         Entry::Occupied(entry) => entry.into_mut(),
