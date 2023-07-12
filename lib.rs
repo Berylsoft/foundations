@@ -33,3 +33,6 @@ mod error_enum;
 mod num_enum;
 #[cfg(feature = "byterepr-macros")]
 mod byterepr_macros;
+
+#[cfg(feature = "const-concat")]
+pub mod const_concat;

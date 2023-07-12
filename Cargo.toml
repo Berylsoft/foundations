@@ -30,4 +30,6 @@ error-enum = []
 num-enum = []
 byterepr-macros = ["byterepr"]
 
+const-concat = []
+
 default = []
