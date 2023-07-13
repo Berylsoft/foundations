@@ -43,7 +43,7 @@ macro_rules! const_concat {
 #[macro_export]
 macro_rules! const_concat_bytes {
     () => {
-        ""
+        &[]
     };
     ($a:expr) => {
         $a
@@ -69,7 +69,7 @@ macro_rules! const_concat_bytes {
 #[macro_export]
 macro_rules! const_concat_byte_arrays {
     () => {
-        ""
+        []
     };
     ($a:expr) => {
         $a
