@@ -27,6 +27,8 @@ pub mod key_index_map;
 mod const_assert;
 #[cfg(feature = "concat-string")]
 mod concat_string;
+#[cfg(feature = "vec-ext")]
+mod vec_ext;
 #[cfg(feature = "error-enum")]
 mod error_enum;
 #[cfg(feature = "num-enum")]
