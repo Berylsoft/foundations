@@ -24,7 +24,6 @@ const-bytes-equal = []
 key-index = []
 key-index-map = ["key-index"]
 
-const-assert = []
 concat-string = []
 vec-ext = []
 error-enum = []
