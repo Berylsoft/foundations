@@ -23,6 +23,8 @@ pub mod key_index;
 #[cfg(feature = "key-index-map")]
 pub mod key_index_map;
 
+#[cfg(feature = "num-compress-macros")]
+pub mod num_compress_macros;
 #[cfg(feature = "concat-string")]
 mod concat_string;
 #[cfg(feature = "vec-ext")]
