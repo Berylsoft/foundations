@@ -1,21 +1,24 @@
-#[inline]
-pub const fn zigzag_encode(n: i64) -> u64 {
-    ((n << 1) ^ (n >> 63)) as u64
+macro_rules! zigzag_impl {
+    // TODO auto make fn name with concat_ident! and const case convert
+    ($($enc_fn_name:ident $dec_fn_name:ident $ity:ident $uty:ty)*) => {$(
+        #[inline]
+        pub const fn $enc_fn_name(n: $ity) -> $uty {
+            // TODO <$uty>::BITS returns u32 whatever $uty is. Does it matter?
+            ((n << 1) ^ (n >> (<$uty>::BITS - 1))) as $uty
+        }
+
+        #[inline]
+        pub const fn $dec_fn_name(n: $uty) -> $ity {
+            ((n >> 1) ^ (-((n & 1) as $ity)) as $uty) as $ity
+        }
+    )*};
 }
 
-#[inline]
-pub const fn zigzag_decode(n: u64) -> i64 {
-    ((n >> 1) ^ (-((n & 1) as i64)) as u64) as i64
+zigzag_impl! {
+    zigzag_encode_i8 zigzag_decode_i8 i8 u8
+    zigzag_encode_i16 zigzag_decode_i16 i16 u16
+    zigzag_encode_i32 zigzag_decode_i32 i32 u32
+    zigzag_encode_i64 zigzag_decode_i64 i64 u64
 }
 
-#[inline]
-pub const fn from_h4l4(h4: u8, l4: u8) -> u8 {
-    assert!(h4 <= 0xf);
-    assert!(l4 <= 0xf);
-    h4 << 4 | l4
-}
-
-#[inline]
-pub const fn to_h4l4(n: u8) -> (u8, u8) {
-    (n >> 4, n & 0xf)
-}
+// TODO tests
