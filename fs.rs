@@ -31,15 +31,22 @@ pub fn normalize(path: &Path) -> PathBuf {
     ret
 }
 
+// TODO Iterator version (with no alloc?)
+
 pub fn iter_path_core(
     current_path: &Path,
     depth: Option<u64>,
     currect_depth: u64,
     list: &mut Vec<(PathBuf, bool)>,
+    normalized: bool,
 ) -> io::Result<()> {
     for entry in fs::read_dir(current_path)? {
         let entry = entry?;
-        let path = entry.path();
+        let path = if normalized {
+            normalize(&entry.path())
+        } else {
+            entry.path()
+        };
         let is_dir = entry.file_type()?.is_dir();
         if let Some(depth) = depth {
             if currect_depth >= depth {
@@ -51,21 +58,23 @@ pub fn iter_path_core(
             continue;
         }
         if is_dir {
-            iter_path_core(&path, depth, currect_depth + 1, list)?;
+            iter_path_core(&path, depth, currect_depth + 1, list, normalized)?;
         }
         list.push((path, is_dir));
     }
     Ok(())
 }
 
-pub fn iter_path(path: &Path, depth: Option<u64>) -> io::Result<Vec<(PathBuf, bool)>> {
+pub fn iter_path(path: &Path, depth: Option<u64>, sort: bool, normalized: bool) -> io::Result<Vec<(PathBuf, bool)>> {
     let mut list = Vec::new();
     let is_dir = fs::metadata(path)?.file_type().is_dir();
     if is_dir {
-        iter_path_core(path, depth, 0, &mut list)?;
+        iter_path_core(path, depth, 0, &mut list, normalized)?;
     } else {
         list.push((path.to_owned(), is_dir));
     }
-    list.sort_by(|a, b| a.0.cmp(&b.0));
+    if sort {
+        list.sort_by(|a, b| a.0.cmp(&b.0));
+    }
     Ok(list)
 }
