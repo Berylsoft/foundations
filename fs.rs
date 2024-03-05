@@ -1,3 +1,4 @@
+use alloc::{vec::Vec, borrow::ToOwned as _};
 use std::{fs, io, path::{Path, PathBuf}};
 
 pub fn normalize(path: &Path) -> PathBuf {

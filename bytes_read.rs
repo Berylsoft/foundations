@@ -1,3 +1,5 @@
+#[cfg(feature = "alloc")] use alloc::vec::Vec;
+
 type BytesReadResult<T> = Result<T, (usize, usize)>;
 
 pub trait BytesRead<'a> {
@@ -15,6 +17,7 @@ pub trait BytesRead<'a> {
         Ok(*self.steal_array()?)
     }
 
+    #[cfg(feature = "alloc")]
     #[inline]
     fn read_to_vec(&mut self, sz: usize) -> BytesReadResult<Vec<u8>> {
         Ok(self.steal(sz)?.to_vec())

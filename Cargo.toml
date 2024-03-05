@@ -11,19 +11,22 @@ name = "foundations"
 path = "lib.rs"
 
 [features]
+alloc = []
+std = ["alloc"]
+
 xor = []
-now = []
+now = ["std"]
 timestamp = []
 usize-casting = []
-map-util = []
+map-util = ["std"]
 byterepr = []
 bytes-read = []
 num-compress = []
-case-convert = []
+case-convert = ["alloc"]
 const-bytes-equal = []
-key-index = []
+key-index = ["std"]
 key-index-map = ["key-index"]
-fs = []
+fs = ["std"]
 
 num-compress-macros = []
 concat-string = []

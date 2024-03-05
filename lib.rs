@@ -1,3 +1,7 @@
+#![no_std]
+#[cfg(feature = "alloc")] extern crate alloc;
+#[cfg(feature = "std")] extern crate std;
+
 #[cfg(feature = "xor")]
 pub mod xor;
 #[cfg(feature = "now")]
@@ -26,7 +30,7 @@ pub mod key_index_map;
 pub mod fs;
 
 #[cfg(feature = "num-compress-macros")]
-pub mod num_compress_macros;
+mod num_compress_macros;
 #[cfg(feature = "concat-string")]
 mod concat_string;
 #[cfg(feature = "vec-ext")]

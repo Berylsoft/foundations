@@ -1,5 +1,6 @@
 #![allow(clippy::type_complexity)]
 
+use alloc::vec::Vec;
 use std::collections::VecDeque;
 use crate::key_index::*;
 

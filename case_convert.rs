@@ -1,3 +1,5 @@
+use alloc::string::String;
+
 #[inline]
 pub fn to_snake_case(s: &str) -> String {
     s.replace('-', "_")
