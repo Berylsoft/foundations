@@ -22,6 +22,8 @@ pub mod const_bytes_equal;
 pub mod key_index;
 #[cfg(feature = "key-index-map")]
 pub mod key_index_map;
+#[cfg(feature = "fs")]
+pub mod fs;
 
 #[cfg(feature = "num-compress-macros")]
 pub mod num_compress_macros;

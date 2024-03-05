@@ -1,0 +1,70 @@
+use std::{fs, io, path::{Path, PathBuf}};
+
+pub fn normalize(path: &Path) -> PathBuf {
+    use std::path::Component;
+    let mut components = path.components().peekable();
+    let mut ret = if let Some(c @ Component::Prefix(..)) = components.peek() {
+        let buf = PathBuf::from(c.as_os_str());
+        components.next();
+        buf
+    } else {
+        PathBuf::new()
+    };
+
+    for component in components {
+        match component {
+            Component::Prefix(..) => unreachable!(),
+            Component::RootDir => {
+                ret.push(component.as_os_str());
+            }
+            Component::CurDir => {}
+            Component::ParentDir => {
+                ret.pop();
+            }
+            Component::Normal(c) => {
+                ret.push(c);
+            }
+        }
+    }
+
+    ret
+}
+
+pub fn iter_path_core(
+    current_path: &Path,
+    depth: Option<u64>,
+    currect_depth: u64,
+    list: &mut Vec<(PathBuf, bool)>,
+) -> io::Result<()> {
+    for entry in fs::read_dir(current_path)? {
+        let entry = entry?;
+        let path = entry.path();
+        let is_dir = entry.file_type()?.is_dir();
+        if let Some(depth) = depth {
+            if currect_depth >= depth {
+                continue;
+            }
+        }
+        #[cfg(windows)]
+        if entry.file_name() == "System Volume Information" || entry.file_name() == "$RECYCLE.BIN" {
+            continue;
+        }
+        if is_dir {
+            iter_path_core(&path, depth, currect_depth + 1, list)?;
+        }
+        list.push((path, is_dir));
+    }
+    Ok(())
+}
+
+pub fn iter_path(path: &Path, depth: Option<u64>) -> io::Result<Vec<(PathBuf, bool)>> {
+    let mut list = Vec::new();
+    let is_dir = fs::metadata(path)?.file_type().is_dir();
+    if is_dir {
+        iter_path_core(path, depth, 0, &mut list)?;
+    } else {
+        list.push((path.to_owned(), is_dir));
+    }
+    list.sort_by(|a, b| a.0.cmp(&b.0));
+    Ok(list)
+}

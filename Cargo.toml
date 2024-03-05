@@ -23,6 +23,7 @@ case-convert = []
 const-bytes-equal = []
 key-index = []
 key-index-map = ["key-index"]
+fs = []
 
 num-compress-macros = []
 concat-string = []
