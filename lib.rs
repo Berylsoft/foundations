@@ -2,45 +2,37 @@
 #[cfg(feature = "alloc")] extern crate alloc;
 #[cfg(feature = "std")] extern crate std;
 
-#[cfg(feature = "xor")]
-pub mod xor;
-#[cfg(feature = "now")]
-pub mod now;
-#[cfg(feature = "timestamp")]
-pub mod timestamp;
-#[cfg(feature = "usize-casting")]
-pub mod usize_casting;
-#[cfg(feature = "map-util")]
-pub mod map_util;
-#[cfg(feature = "byterepr")]
-pub mod byterepr;
-#[cfg(feature = "bytes-read")]
-pub mod bytes_read;
-#[cfg(feature = "num-compress")]
-pub mod num_compress;
-#[cfg(feature = "case-convert")]
-pub mod case_convert;
-#[cfg(feature = "const-bytes-equal")]
-pub mod const_bytes_equal;
-#[cfg(feature = "key-index")]
-pub mod key_index;
-#[cfg(feature = "key-index-map")]
-pub mod key_index_map;
-#[cfg(feature = "fs")]
-pub mod fs;
+macro_rules! decl_modules {
+    ($($pub:vis $name:ident $feature_name:literal)*) => {$(
+        #[cfg(feature = $feature_name)]
+        pub mod $name;
+    )*};
+}
 
-#[cfg(feature = "num-compress-macros")]
-mod num_compress_macros;
-#[cfg(feature = "concat-string")]
-mod concat_string;
-#[cfg(feature = "vec-ext")]
-mod vec_ext;
-#[cfg(feature = "error-enum")]
-mod error_enum;
-#[cfg(feature = "num-enum")]
-mod num_enum;
-#[cfg(feature = "byterepr-macros")]
-mod byterepr_macros;
+decl_modules! {
+    // common modules
+    pub xor "xor"
+    pub now "now"
+    pub timestamp "timestamp"
+    pub usize_casting "usize-casting"
+    pub map_util "map-util"
+    pub byterepr "byterepr"
+    pub bytes_read "bytes-read"
+    pub num_compress "num-compress"
+    pub case_convert "case-convert"
+    pub const_bytes_equal "const-bytes-equal"
+    pub key_index "key-index"
+    pub key_index_map "key-index-map"
+    pub fs "fs"
 
-#[cfg(feature = "const-concat")]
-pub mod const_concat;
+    // pure macros
+    num_compress_macros "num-compress-macros"
+    concat_string "concat-string" 
+    vec_ext "vec-ext"
+    error_enum "error-enum"
+    num_enum "num-enum"
+    byterepr_macros "byterepr-macros"
+
+    // macros with helper functions
+    pub const_concat "const-concat"
+}
