@@ -6,7 +6,7 @@ pub fn normalize(path: &Path) -> PathBuf {
     let mut components = path.components().peekable();
     let mut ret = if let Some(c @ Component::Prefix(..)) = components.peek() {
         let buf = PathBuf::from(c.as_os_str());
-        components.next();
+        let _ = components.next();
         buf
     } else {
         PathBuf::new()
@@ -20,7 +20,7 @@ pub fn normalize(path: &Path) -> PathBuf {
             }
             Component::CurDir => {}
             Component::ParentDir => {
-                ret.pop();
+                let _ = ret.pop();
             }
             Component::Normal(c) => {
                 ret.push(c);
